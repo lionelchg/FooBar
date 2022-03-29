@@ -3,9 +3,9 @@
 % Head down to where it says "Start here"
 % --------------------------------------------------------------
 
-\title{Riemann problems and Euler equations}
-\author{Lionel Cheng}
-\date{April 2021}
+\title{FooBar challenge notes}
+\author{Lionel Cheng, Adrien Suau}
+\date{April 2022}
 
 \documentclass[12pt]{article}
 
@@ -69,10 +69,42 @@
 %                         Start here
 % --------------------------------------------------------------
 
-\section{Hyperbolic partial differential equations}
+\section{Challenge 4.1: Free the Bunny Workers}
 
-For $l \in \intint{1}{L}$
+\subsection{Problem}
 
+Let us recast the problem using set notations. The inputs are:
 
+\begin{itemize}
+    \item The number of bunnies $n_r \in \intint{1}{9}$
+    \item The number of required bunnies $n_r \in \intint{0}{9}$
+\end{itemize}
+
+We note $n_k$ the total number of keys which is unknown and $K = \intint{1}{n_k}$ the set of keys. The goal is to find the least lexicographical distribution of keys $D = \{d_1, \ldots, d_{n_b}\}$ such that
+
+\begin{gather}
+    \bigcup_{i \in C} d_i = K \quad \forall C \in \mc{C}(n_r, n_b) \\
+    \bigcup_{i \in C} d_i \subset K \quad \forall C \in \mc{C}(n_r - 1, n_b)
+\end{gather}
+
+\noindent where $\mc{C}(n_r, n_b)$ are all the combinations of $n_r$ numbers among $n_b$ such that $\#\mc{C}(n_r, n_b) = \binom{n}{k}$.
+
+\subsection{Reformulation of the problem}
+
+By negating the assertion we need to find a distribution $\bar{D} = {K \setminus d_i} = \{\bar{d_1}, \ldots, \bar{d_{n_b}}\}$ such that
+
+\begin{gather}
+    \bigcap_{i \in C} d_i = \emptyset \quad \forall C \in \mc{C}(n_r, n_b) \\
+    \bigcap_{i \in C} d_i \supset \emptyset \quad \forall C \in \mc{C}(n_r - 1, n_b)
+\end{gather}
+
+Since $\bigcap_{i \in C} d_i = \emptyset$ and $\# C = n_r$, it means that each key must appear \textit{at most} $n_r - 1$ times. We make the further assumptions that each key must appear \textbf{exactly} $n_r - 1$ times. That leads to the following equalities:
+
+\begin{align}
+    &\sum_{i=1}^{n_b} \mrm{Card}(\bar{d_i}) = n_k (n_r - 1)\\
+    \implies & n_k = \frac{n_{kb}}{n_b - n_r + 1} n_b
+\end{align}
+
+\noindent where $n_{kb}$ corresponds to the number of keys per bunny (each bunny has the same number of keys if each key must appear $n_r - 1$ times).
 
 \end{document}
